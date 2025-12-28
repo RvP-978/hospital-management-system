@@ -26,7 +26,7 @@ You have received:
 4. **Answer all questions** in the `MY_ANSWERS.md` file
 5. **Complete 2 tasks** from Part 3 (your choice)
 6. **Test** that the app still works after your changes
-7. **Submit** your updated code as a ZIP file
+7. **Submit** your updated code in a new branch as mentioned in "How to Submit" Section
 
 ---
 
