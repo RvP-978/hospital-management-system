@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 
+// Main Application Component
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [user, setUser] = useState(null);
@@ -22,6 +23,7 @@ function App() {
     }
   }, []);
 
+  // Sample doctor data
   const doctors = [
     { name: "Dr. Sumathi", email: "dr.sumathi@test.com", specialty: "Cardiologist", experience: 10, days: "Mon, Wed, Fri" },
     { name: "Dr. Ramesh", email: "dr.ramesh@test.com", specialty: "Neurologist", experience: 8, days: "Tue, Thu, Sat" },
@@ -33,6 +35,17 @@ function App() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // validation of password length
+    if (formData.password.length < 6){
+      setMessage("password must be at least 6 characters");
+      return;
+    } 
+    //validation of age range 
+    if(formData.age <1 || formData.age >120){
+      setMessage("age must be between 1 and 120");
+      return;
+    }
     setLoading(true);
     setMessage('');
     try {
@@ -41,6 +54,7 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+  
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('accessToken', data.tokens.accessToken);
@@ -51,13 +65,18 @@ function App() {
       } else {
         setMessage(data.message || 'Registration failed');
       }
-    } catch (error) {
-      setMessage('Backend not running on port 5000');
-    } finally {
-      setLoading(false);
-    }
+    }catch (error) { // imporved error message
+  if (error.name === 'TypeError' && error.message.includes('fetch')) {
+    setMessage('No internet or backend not running on port 5000');
+  } else {
+    setMessage(`Registration error: ${error.message}`);
+  }
+} finally {
+  setLoading(false);
+}
   };
 
+  // Handle Patient Login
   const handlePatientLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -78,40 +97,52 @@ function App() {
       } else {
         setMessage(data.message || 'Login failed');
       }
-    } catch (error) {
-      setMessage('Backend not running on port 5000');
-    } finally {
-      setLoading(false);
-    }
+    }catch (error) { //improved error message 
+  if (error.name === 'TypeError' && error.message.includes('fetch')) {
+    setMessage('No internet or backend not running');
+  } else {
+    setMessage(`Login error: ${error.message}`);
+  }
+} finally {
+  setLoading(false);
+}
   };
 
+  // Handle Doctor Login
   const handleDoctorLogin = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage('');
-    try {
-      const response = await fetch('http://localhost:5000/api/auth/doctor/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(loginData)
-      });
-      const data = await response.json();
-      if (response.ok) {
-        localStorage.setItem('accessToken', data.tokens.accessToken);
-        localStorage.setItem('user', { ...data.user, role: 'doctor' });
-        setUser({ ...data.user, role: 'doctor' });
-        setCurrentPage('dashboard');
-        setMessage('Doctor login successful!');
-      } else {
-        setMessage(data.message || 'Doctor login failed');
-      }
-    } catch (error) {
-      setMessage('Backend not running on port 5000');
-    } finally {
-      setLoading(false);
-    }
+      e.preventDefault();
+      setLoading(true);
+      setMessage('');
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/doctor/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(loginData)
+        });
+        const data = await response.json();
+        if (response.ok) {
+          localStorage.setItem('accessToken', data.tokens.accessToken);
+          localStorage.setItem('user', JSON.stringify({ ...data.user, role: 'doctor' })); // added JSON.stringify to store objects properly
+          setUser({ ...data.user, role: 'doctor' });
+          setCurrentPage('dashboard');
+          setMessage('Doctor login successful!');
+        } else {
+          setMessage(data.message || 'Doctor login failed');
+        }
+      }catch (error) { //improved error message
+  if (error.name === 'TypeError' && error.message.includes('fetch')) {
+    setMessage('No internet or backend not running');
+  } else {
+    setMessage(`Doctor login error: ${error.message}`);
+  }
+}
+  finally {
+    setLoading(false);
+  }
   };
 
+
+  // Handle Logout
   const handleLogout = () => {
     localStorage.clear();
     setUser(null);
@@ -124,12 +155,14 @@ function App() {
   const handleLoginChange = (e) => setLoginData({ ...loginData, [e.target.name]: e.target.value });
   const handleBookingChange = (e) => setBookingData({ ...bookingData, [e.target.name]: e.target.value });
 
+  
   const openBookingModal = (doctor) => {
     setSelectedDoctor(doctor);
     setBookingData({ doctorEmail: doctor.email, date: '', time: '', reason: '' });
     setShowBookingModal(true);
   };
-
+  
+  // Handle Booking Appointment
   const bookAppointment = async (e) => {
     e.preventDefault();
     alert('Appointment booked successfully!');

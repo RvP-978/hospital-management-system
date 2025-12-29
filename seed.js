@@ -13,7 +13,7 @@ const seedDoctors = async () => {
                 firstName: "Sumathi",
                 specialization: "Cardiologist",
                 experience: 10,
-                availability: ["Monday", "wednesday", "friday"]
+                availability: ["Monday", "Wednesday", "Friday"]//misspelled availability and capitalized the words Friday and Wednesday
             },
             {
                 email: "dr.ramesh@test.com",
@@ -21,7 +21,7 @@ const seedDoctors = async () => {
                 firstName: "Ramesh",
                 specialization: "Neurologist",
                 experience: 8,
-                avilability: ["Tuesday", "Thursday", "Saturday"]
+                availability: ["Tuesday", "Thursday", "Saturday"]//misspelled availability
             },
             {
                 email: "dr.neha@test.com",
@@ -29,7 +29,7 @@ const seedDoctors = async () => {
                 firstName: "Neha",
                 specialization: "Pediatrician",
                 experience: 5,
-                avilability: ["Monday", "Wednesday", "Friday"]
+                availability: ["Monday", "Wednesday", "Friday"]//misspelled availability
             },
             {
                 email: "dr.gaana@test.com",
@@ -37,7 +37,7 @@ const seedDoctors = async () => {
                 firstName: "Gaana",
                 specialization: "Dermatologist",
                 experience: 7,
-                avilability: ["Monday", "Wednesday", "Friday"]
+                availability: ["Monday", "Wednesday", "Friday"]//misspelled availability
             },
             {
                 email: "dr.vinaya@test.com",
@@ -45,7 +45,7 @@ const seedDoctors = async () => {
                 firstName: "Vinaya",
                 specialization: "Orthopedic",
                 experience: 6,
-                avilability: ["Tuesday", "Thursday", "Saturday"]
+                availability: ["Tuesday", "Thursday", "Saturday"]//misspelled availability
             },
             {
                 email: "dr.hithesh@test.com",
@@ -53,15 +53,15 @@ const seedDoctors = async () => {
                 firstName: "Hithesh",
                 specialization: "Oncologist",
                 experience: 9,
-                avilability: ["Monday", "Wednesday", "Friday"]
+                availability: ["Monday", "Wednesday", "Friday"]//misspelled availability
             }
         ];
 
         for(let doc of doctors){
-            const user = new User({email: doc.email, password:doc.password, role:"doctor"});
+            const user = new User({email: doc.email, password:doc.password,firstName:doc.firstName, role:"doctor"});// created firstName to user constructor
             await user.save();
 
-            console.log(`doctor created: ${doc.firstName} ${doc.lastName}`);
+            console.log(`doctor created: ${user.firstName} `);
         }
         console.log("doctors seeded");
         process.exit(0);

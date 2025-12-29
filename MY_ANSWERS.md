@@ -1,7 +1,7 @@
 # My Answers - Hospital Management System Assessment
 
-> **Name:** [Your Name]  
-> **Date:** [Date]
+> **Name:** Vismitha  
+> **Date:** 29/12/2025
 
 ---
 
@@ -10,39 +10,38 @@
 ### Task 1.1: Filename Spelling Mistake
 
 **What was the wrong filename?**
-> [Your answer here]
+> middlewear 
 
 **What should it be?**
-> [Your answer here]
+> middleware 
 
 **Why is correct spelling important in code?**
-> [Your answer here - explain in 2-3 sentences]
+> correct spelling prevents import errors when other files try to use
 
----
 
 ### Task 1.2: seed.js Spelling Mistakes
 
 **What word was misspelled?**
-> [Your answer here]
+> avilability
 
 **How many times did you fix it?**
-> [Your answer here]
+> 6 times 
 
 **What was the bug on line 64?**
-> [Your answer here - explain what variable was wrong and why]
+> doc.firstName was not accessible in user scope. fixed by adding `firstName: doc.firstName`
 
 ---
 
 ### Task 1.3: LocalStorage Bug
 
 **What was the difference between line 74 and line 101?**
-> [Your answer here]
+> in line 101 JSON.stringify was missing 
 
 **Why was one of them wrong?**
-> [Your answer here]
+> line 101 was wrong because local storage only store Srings. 
 
 **What does JSON.stringify() do?**
-> [Your answer here - explain in simple terms]
+> converts JavaScript objects to JSON strings for storage
 
 ---
 
@@ -51,77 +50,95 @@
 ### Task 2.1: Login Flow
 
 **1. What happens when a user clicks the "Login" button?**
-> [Your answer here]
+> calls "handlePatientLogin()" prevent from submit , sends POST request with email/password, stores tokens, redirects to dashboard 
 
 **2. What does fetch() do?**
-> [Your answer here]
+> Makes HTTP POST request to backend with JSON data, return response object
 
 **3. What gets stored in localStorage after successful login?**
-> [Your answer here]
+> token and JSON stringified user object (user)
 
 **4. What happens if the login fails?**
-> [Your answer here]
+> show server error message 
 
 ---
 
 ### Task 2.2: User Model
 
 **1. What information does a User have? (list the fields)**
-> [Your answer here]
+> email, password, firstName, age, gender,phone, address, specialization, experience, availability 
 
 **2. What does the pre('save') function do?**
-> [Your answer here]
+> automatically runs before "user.save()"
 
 **3. Why do we hash passwords before saving them?**
-> [Your answer here]
+> security, if database is hacked, password can not be read in plain text.
 
 **4. What does the comparePassword method do?**
-> [Your answer here]
+> compare plain password with hased version 
 
 ---
 
 ### Task 2.3: Authentication Middleware
 
 **1. What is middleware in Express.js?**
-> [Your answer here]
+> function thats process requests 
 
 **2. What does authenticateToken check for?**
-> [Your answer here]
+> 
 
 **3. What happens if no token is provided?**
-> [Your answer here]
+> return 401 error 
 
 **4. What does next() do?**
-> [Your answer here]
+> passes control to next middleware 
 
 ---
 
-## Part 3: Improvements (I completed these 2 options)
+## Part 3: Improvements 
 
-### Option [A/B/C/D]: [Name of the option you chose]
+### Option [A]: add a .env.example file
 
 **What I did:**
-> [Describe what you changed]
+> created file ".env.example" 
 
 **Answer the question from the task:**
-> [Your answer here]
+> Env vars: Don't hardcode secrets (DB password, JWT key) in code. Use different values for laptop vs server.
+.env: Simple text file with KEY=value lines. dotenv reads it automatically. .env.example shows format without real secrets
 
 ---
 
-### Option [A/B/C/D]: [Name of the second option you chose]
+### Option [B]: add input validation
 
 **What I did:**
-> [Describe what you changed]
+> added password validation (should be >6)
+  and age validation (range between 1 to 120)
 
 **Answer the question from the task:**
-> [Your answer here]
+> prevents invalid data and should validate both frontend and backend 
 
 ---
 
-## Additional Notes (Optional)
+### Option [C]: add comments to the code
 
-> [Write anything else you want to share - things you learned, challenges you faced, or questions you have]
+**What I did:**
+> added comments
+
+**Answer the question from the task:**
+> helps developers understand quickly
+  nakes future changes easier 
 
 ---
+
+### Option [D]: improve error message
+
+**What I did:**
+> improved error messages 
+
+**Answer the question from the task:**
+> Users: "No internet" - check WiFi. "Wrong password" - retry login. Generic "error"-confused, quit app.
+
+Developers: "TypeError fetch" - network issue. "500 error" - backend bug,. generic message
+
 
 **Thank you for reviewing my work!**
